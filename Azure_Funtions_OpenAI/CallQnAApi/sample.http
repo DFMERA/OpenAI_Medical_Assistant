@@ -1,0 +1,30 @@
+# Call CallQnAApi
+POST http://localhost:7071/api/CallQnAApi
+Content-Type: application/json
+
+{
+  "KnowledgeBaseText": "Historial del paciente:\nNo tiene alergias a ningún medicamento\nNo tiene ninguna cirugia previa\nNo bebe alcohol\nNo fuma\nNo consume drogas\nToma medicación para la depresión\nNació el 17 de octubre de 1984\nHombre\nmide 1.75 metros\npesa 61 kilos\nTuvo un sagrado digestivo por ulceras en julio del 2022\nTuvo anemia aguda como consecuencia del sagrado digestivo de julio 2022\nEstuvo hospitalizado 3 veces por el sangrado digestivo\nRecibió 8 pintas de sangre\nTuvo covid en diciembre de 2022\nEstuvo hospitalizado por consecuencia del Covid\n",
+  "Prompt": "Tiene cirugías?"
+}
+
+###
+
+# Call CallQnAApi
+POST http://localhost:7071/api/CallQnAApi
+Content-Type: application/json
+
+{
+  "KnowledgeBaseText": "Historial del paciente:\nNo tiene alergias a ningún medicamento\nNo tiene ninguna cirugia previa\nNo bebe alcohol\nNo fuma\nNo consume drogas\nToma medicación para la depresión\nNació el 17 de octubre de 1984\nHombre\nmide 1.75 metros\npesa 61 kilos\nTuvo un sagrado digestivo por ulceras en julio del 2022\nTuvo anemia aguda como consecuencia del sagrado digestivo de julio 2022\nEstuvo hospitalizado 3 veces por el sangrado digestivo\nRecibió 8 pintas de sangre\nTuvo covid en diciembre de 2022\nEstuvo hospitalizado por consecuencia del Covid\n",
+  "Prompt": "Tiene alguna alergia?"
+}
+
+### Azure Function
+
+# Call CallQnAApi
+POST https://dfmera-api-demoqnaopenai.azurewebsites.net/api/CallQnAApi?code=EEKc1B9RSYxxDYyXF5e3yLEOIDr2YbGNScW6sF2i-SNvAzFuEtM7iw==
+Content-Type: application/json
+
+{
+  "KnowledgeBaseText": "Historial del paciente:\nNo tiene alergias a ningún medicamento\nNo tiene ninguna cirugia previa\nNo bebe alcohol\nNo fuma\nNo consume drogas\nToma medicación para la depresión\nNació el 17 de octubre de 1984\nHombre\nmide 1.75 metros\npesa 61 kilos\nTuvo un sagrado digestivo por ulceras en julio del 2022\nTuvo anemia aguda como consecuencia del sagrado digestivo de julio 2022\nEstuvo hospitalizado 3 veces por el sangrado digestivo\nRecibió 8 pintas de sangre\nTuvo covid en diciembre de 2022\nEstuvo hospitalizado por consecuencia del Covid\n",
+  "Prompt": "Tiene alguna alergia?"
+}

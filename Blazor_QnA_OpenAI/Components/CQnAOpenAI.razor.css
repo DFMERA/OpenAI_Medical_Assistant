@@ -1,0 +1,13 @@
+.title {
+    text-align: center;
+    margin-top: 20px;
+  }
+  #txtInformacionPaciente, #txtRespuestaPaciente2 {
+    height: 300px;
+  }
+  #txtRespuestaPaciente {
+    background-color: #f0f0f0;
+  }
+  #btnConsultar {
+    width: 100%;
+  }

@@ -1,0 +1,91 @@
+@page "/qnaopenai"
+@implements IAsyncDisposable
+@inject IJSRuntime JS
+
+<PageTitle>QnA OpenAI</PageTitle>
+
+<h1>QnA OpenAI</h1>
+
+@* <--! Create a modern design layout with a center title "Paciente: XXXXXXXXXX"
+, a big textbox in the left named txtInformacionPaciente, a small button named Consultar in the center 
+and another big textbox named txtRespuestaPaciente in the right --> *@
+<div class="container">
+  <h1 class="title">Paciente: XXXXXXXXXX</h1>
+  <div class="row">
+    <div class="col-sm-6">
+      <textarea id="txtInformacionPaciente" class="form-control" placeholder="Historia del paciente" @bind="InfoPatient"></textarea>
+      <input type="text" id="txtPrompt" class="form-control mt-2" placeholder="Pregunta" @bind="StrPrompt"/>
+      <button id="btnConsultar" class="btn btn-primary mt-2" @onclick="CallQnAApi">Consultar</button>
+      <button class="btn btn-primary mt-2" id="playbutton" @onclick="TriggerCallSpeechToText">Consultar por Voz</button>
+    </div>
+    <div class="col-sm-6">
+      <textarea id="txtRespuestaPaciente2" class="form-control" placeholder=@QnAResponse readonly>@QnAResponse</textarea>
+      <textarea id="txtRespuestaPaciente" class="form-control" placeholder=@QnAResponse readonly>@QnAResponse</textarea>
+    </div>
+  </div>
+</div>
+
+@code {
+    //private IJSObjectReference? module;
+    private IJSInProcessObjectReference? module;
+    private string? result;
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            module = await JS.InvokeAsync<IJSInProcessObjectReference>("import", 
+                "./../Components/CQnAOpenAI.razor.js");
+        }
+    }
+
+    private async Task TriggerCallSpeechToText()
+    {
+        result = await CallSpeechToText();
+        Console.WriteLine("C# - " + result);
+    }
+
+    public async ValueTask<string?> CallSpeechToText() =>
+        module is not null ? 
+            await module.InvokeAsync<string>("SpeechToTextFromMic") : null;
+
+    async ValueTask IAsyncDisposable.DisposeAsync()
+    {
+        if (module is not null)
+        {
+            await module.DisposeAsync();
+        }
+    }
+
+    [JSInvokable]
+    public static async Task<string> ReturnPromptAsync(string prompt)
+    {
+        StrPrompt = prompt;
+        //StateHasChanged();
+        var strRespuesta = await CallQnAApi();
+        //return Task.FromResult("Prompt actualizado desde JS");
+        return strRespuesta;
+    }
+}
+
+@code {
+    private static string InfoPatient = "Historial del paciente:\nNombre completo: JUAN PEREZ PEREZ\nCédula: 1234512345\nNo tiene alergias a ningún medicamento\nNo tiene ninguna cirugía previa\nNo bebe alcohol\nNo fuma\nNo consume drogas\nNo tiene diabetes\nToma Escitalopram para la depresión\nNació el 17 de octubre de 1984\nHombre\nmide 1.75 metros\npesa 61 kilos\nTuvo un sagrado digestivo por úlceras en julio del 2022\nEstuvo hospitalizado por 6 días como consecuencia del sangrado en julio del 2022\nTuvo anemia aguda como consecuencia del sagrado digestivo de julio 2022\nTuvo un segundo sangrado digestivo en Octubre 2022\nEstuvo hospitalizado 2 días en cuidados intensivos por el segundo sangrado digestivo\nRecibió 8 pintas de sangre\nTuvo covid-19 en diciembre de 2022 \nEstuvo hospitalizado 4 días por consecuencia del Covid-19\n";
+    private static string QnAResponse = "Respuesta del QnA: ";
+    private static string StrPrompt = "Tuvo Covid?";
+
+    private static async Task<string> CallQnAApi()
+    {
+        Console.WriteLine("Inicio CallQnAApi " + StrPrompt);
+        var qnaApiUril = "http://localhost:7071/api/CallQnAApi";
+        var qnaApiClient = new HttpClient();
+        
+        var qnaApiRequest = new HttpRequestMessage(HttpMethod.Post, qnaApiUril);
+        qnaApiRequest.Content = new StringContent(JsonConvert.SerializeObject(new { KnowledgeBaseText = InfoPatient, Prompt = StrPrompt }), Encoding.UTF8, "application/json");
+        var qnaApiResponse = await qnaApiClient.SendAsync(qnaApiRequest);
+        var qnaApiResult = await qnaApiResponse.Content.ReadAsStringAsync();
+        QnAResponse = qnaApiResult;
+        
+        return qnaApiResult;
+    }
+
+}
