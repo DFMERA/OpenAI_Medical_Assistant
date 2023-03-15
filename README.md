@@ -2,7 +2,7 @@
 
 This project is a sample application that uses [OpenAI](https://openai.com) and Azure Speech to create a QnA "Medical Assistant". It can answer questions about a patient's medical history in natural language, much like [ChatGPT](https://chat.openai.com) but with its own knowledge base.
 
-![OpenAI Medical Assistant](https://github.com/DFMERA/Blazor_QnA_OpenAI/blob/main/img/OpenAI_Medical_Assistant.gif)
+![OpenAI Medical Assistant](https://github.com/DFMERA/OpenAI_Medical_Assistant/blob/main/img/OpenAI_Medical_Assistant.gif)
 
 ## Components
 The project has two principal components.
