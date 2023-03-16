@@ -46,3 +46,6 @@ dotnet watch
 The project runs in ```http://localhost:5082```
 
 You can change the dummy patient history and ask any question about the history in text or by voice. Much like [ChatGPT](https://chat.openai.com) it will understand the natural language and give you a response.
+
+***Blog Post***
+[ChatGPT | Asistente Médico con OpenAI usando Blazor y Azure Speech](https://acelera.tech/2023/03/16/chatgpt-asistente-medico-con-openai-usando-blazor-y-azure-speech/)
