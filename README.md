@@ -17,11 +17,11 @@ The project **Blazor_QnA_OpenAI** is a Blazor WASM app that asks the user for a 
 - [Visual Studio Code](https://code.visualstudio.com)
 - [Azure Functions SDK](https://azure.microsoft.com/en-us/downloads/)
 - [.NET 6.0 (or later)](https://dotnet.microsoft.com/en-us/download)
-- [OpenAI suscription key](https://platform.openai.com/docs/introduction)
-- [Azure Speech suscription key](https://learn.microsoft.com/en-us/azure/cognitive-services/speech-service/index-speech-to-text)
+- [OpenAI subscription key](https://platform.openai.com/docs/introduction)
+- [Azure Speech subscription key](https://learn.microsoft.com/en-us/azure/cognitive-services/speech-service/index-speech-to-text)
 
 ## Run the Project
-First, we need to run the Azure Functions API, open the project Azure_Functions_OpenAI in VS Code, edit the file local.settings.json and change the next key with your [OpenAI suscription key](https://platform.openai.com/docs/introduction)
+First, we need to run the Azure Functions API, open the project Azure_Functions_OpenAI in VS Code, edit the file local.settings.json and change the next key with your [OpenAI subscription key](https://platform.openai.com/docs/introduction)
 ```
 "OPENAI_API_KEY": "{OpenAI KEY}"
 ```
@@ -31,9 +31,9 @@ func start
 ```
 The API runs in ```http://localhost:7071/api/CallQnAApi```
 
-Second, we need to run the web project, open the project Blazor_QnA_OpenAI in VS Code, edit the file CQnAOpenAI.razor.js and change the next line with your [Azure Speech suscription key](https://portal.azure.com/#create/Microsoft.CognitiveServicesSpeechServices) and region
+Second, we need to run the web project, open the project Blazor_QnA_OpenAI in VS Code, edit the file CQnAOpenAI.razor.js and change the next line with your [Azure Speech subscription key](https://portal.azure.com/#create/Microsoft.CognitiveServicesSpeechServices) and region
 ```
-var subscriptionKey = "{Azure Speech Suscription Key}", serviceRegion = "{Azure Speech Region}";
+var subscriptionKey = "{Azure Speech Subscription Key}", serviceRegion = "{Azure Speech Region}";
 ```
 If you want the project to understand you in English you have to change the value of the next line to **en-US**
 ```
